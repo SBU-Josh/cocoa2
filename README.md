@@ -25,10 +25,12 @@ This readme file presents basic and advanced instructions for installing all [Co
 
 ## Installation of Cocoa's required packages <a name="required_packages"></a>
 
-[CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require many C, C++ and Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicate the installation of Cocoa in HPC environments and the verification of numerical results. This section standardize the package environment.
+[CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require C/C++/Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicates the installation of Cocoa in HPC environments and the verification of numerical results. Our instructions standardize the package environment.
 
 ### Via Conda <a name="required_packages_conda"></a>
 
+(**Warning**) If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see section [Miniconda Installation](#sbu_overview_anaconda).
+ 
 The most straightforward way to install most prerequisites is via [Conda](https://github.com/conda/conda). We assume here the user had previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). Type the following commands to create the cocoa Conda environment.
 
     conda create --name cocoa python=3.7 --quiet --yes \
@@ -62,7 +64,7 @@ The most straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::matplotlib=3.5.0' \
       'conda-forge::astropy=4.3.1'
       
- (**Warning**) If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see section [Miniconda Installation](#sbu_overview_anaconda).
+
  
  (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
