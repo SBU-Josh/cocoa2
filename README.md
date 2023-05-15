@@ -65,7 +65,7 @@ The most straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::matplotlib=3.5.0' \
       'conda-forge::astropy=4.3.1'
       
- (**Warning**) If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see setion [Miniconda Installation](##sbu_overview_anaconda).
+ (**Warning**) If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see setion [Miniconda Installation](#sbu_overview_anaconda).
  
  (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
