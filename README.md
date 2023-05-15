@@ -91,15 +91,17 @@ The more straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::pandas=1.3.4' \
       'conda-forge::mpi4py=3.1.2' \
       'conda-forge::matplotlib=3.5.0' \
-      'conda-forge::astropy=4.3.1' \
-      && conda run -n cocoa /opt/conda/envs/cocoa/bin/pip install --no-cache-dir --root-user-action=ignore \
+      'conda-forge::astropy=4.3.1'
+ 
+ (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
+ 
+      conda activate cocoa 
+      conda run -n cocoa $CONDA_PREFIX/bin/pip install --no-cache-dir --root-user-action=ignore \
         'tensorflow-cpu==2.8.0' \
         'keras==2.8.0' \
         'keras-preprocessing==1.1.2' \
         'torch==1.11.0+cpu' \ 
         'torchvision==0.12.0+cpu' -f https://download.pytorch.org/whl/torch_stable.html
-
-(**expert**) We added tensorflow, keras and torch for future emulator projects.
 
 With this installation method, users must activate the Conda environment whenever working with Cocoa, as shown below 
 
