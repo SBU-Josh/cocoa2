@@ -11,6 +11,8 @@ else
 fi
 
 source $ROOTDIR/installation_scripts/clean_camb
+source $ROOTDIR/installation_scripts/clean_cambede
+source $ROOTDIR/installation_scripts/clean_cambmultifluid
 source $ROOTDIR/installation_scripts/clean_class
 source $ROOTDIR/installation_scripts/clean_cosmolike
 source $ROOTDIR/installation_scripts/clean_planck
