@@ -61,12 +61,6 @@ Users can now go to section [Installation of Cocoa's required packages via conda
 
 [CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require many C, C++ and Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicate the installation of Cocoa in HPC environments and the verification of numerical results. This section standardize the package environment.
 
-There are three installation methods. Users must choose one of them:
-
-1. [Via Conda](#required_packages_conda) (best for Linux)
-2. [Via Docker](#required_packages_docker) (best for MacOS/Windows)
-3. [Via Cocoa's internal cache](#required_packages_cache) (This method is slow, not advisable)
-
 ### Via Conda (best for Linux/HPC) <a name="required_packages_conda"></a>
 
 The more straightforward way to install most prerequisites is via [Conda](https://github.com/conda/conda). Cocoa's internal scripts will then install any remaining missing packages, using a provided internal cache located at [cocoa_installation_libraries](https://github.com/SBU-Josh/cocoa2/tree/main/cocoa_installation_libraries). Assuming that the user had previously installed [Minicoda](https://docs.conda.io/en/latest/miniconda.html) (or [Anaconda](https://www.anaconda.com/products/individual)), the first step is to type the following commands to create the cocoa Conda environment.
