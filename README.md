@@ -96,7 +96,7 @@ When loading the conda cocoa environment for the first time, users must install 
 
 **Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**
 
-### Install Miniconda <a name="sbu_overview_anaconda"></a>
+### Miniconda Installation <a name="sbu_overview_anaconda"></a>
 
 (**warning**) Make sure you don't have system anaconda loaded via the command 
 
