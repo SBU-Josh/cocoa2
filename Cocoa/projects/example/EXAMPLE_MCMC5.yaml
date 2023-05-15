@@ -15,7 +15,7 @@ params:
       loc: 3.05
       scale: 0.001
     proposal: 0.001
-    latex: \log(10^{10} A_\mathrm{s})
+    latex: \log(10^{10} A_\mathrm{s}
     drop: true
   As:
     value: 'lambda logA: 1e-10*np.exp(logA)'
