@@ -65,7 +65,7 @@ The most straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::matplotlib=3.5.0' \
       'conda-forge::astropy=4.3.1'
       
- (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
+ (**warning**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
       conda activate cocoa 
       $CONDA_PREFIX/bin/pip install --no-cache-dir \
