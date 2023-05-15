@@ -224,15 +224,8 @@ MCMC:
 Once the work is done, type:
 
     $(cocoa)(.local) source stop_cocoa
-
-(**expert**) [stop_cocoa](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/stop_cocoa) will also restore `OMP_NUM_THREADS` to its original value before the script [start_cocoa](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/start_cocoa) was sourced. 
-
-and (optional)  
-    
     $(cocoa) conda deactivate cocoa
-
-(**expert**) Why is the deactivation of the cocoa Conda environment flag optional? The Cocoa Conda environment can be helpful in many types of projects!
-
+    
 ## Running Cosmolike projects <a name="running_cosmolike_projects"></a> 
 
 The projects folder was designed to include all Cosmolike projects. Like the last section, we assume the user opted for the easier *Conda installation*, and located the terminal at the folder *where Cocoa was cloned*.
