@@ -28,6 +28,10 @@ This readme file presents basic and advanced instructions for installing all [Co
 
 ### Using Miniconda <a name="sbu_overview_anaconda"></a>
 
+(**warning**) Make sure you don't have system anaconda loaded via the command 
+
+    module unload anaconda
+
 Download and run Miniconda installation script (please adapt `CONDA_DIR`):
 
     export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
@@ -36,13 +40,11 @@ Download and run Miniconda installation script (please adapt `CONDA_DIR`):
 
     wget https://repo.continuum.io/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh
 
-    /bin/bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -f -b -p $CONDA_DIR
-
 After installation, users must source conda configuration file, see the line below (add such line to your $.bashrc$ file)
 
     source $CONDA_DIR/etc/profile.d/conda.sh
 
-(**warning**) When running conda for the first time, use the instructions below to configure the use of channels
+When running conda for the first time, use the instructions below to configure the use of channels
 
     conda config --set auto_update_conda false 
     conda config --set show_channel_urls true 
@@ -51,10 +53,6 @@ After installation, users must source conda configuration file, see the line bel
     conda config --set channel_priority strict 
     conda init bash
     
-(**warning**) Make sure you don't have system anaconda loaded via the command 
-
-    module unload anaconda
-
 Users can now go to section [Installation of Cocoa's required packages via conda](#required_packages_conda). 
 
 ## Installation of Cocoa's required packages <a name="required_packages"></a>
