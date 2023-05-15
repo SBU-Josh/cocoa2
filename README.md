@@ -71,7 +71,7 @@ The most straightforward way to install most prerequisites is via [Conda](https:
         'tensorflow-cpu==2.8.0' \
         'keras==2.8.0' \
         'keras-preprocessing==1.1.2' \
-        'torch==1.11.0+cpu' \ 
+        'torch==1.11.0+cpu' \
         'torchvision==0.12.0+cpu' -f https://download.pytorch.org/whl/torch_stable.html
 
 With this installation method, users must activate the Conda environment whenever working with Cocoa, as shown below 
