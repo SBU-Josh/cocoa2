@@ -99,7 +99,7 @@ This method is slow and not advisable. When Conda is unavailable, the user can s
    - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
    - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
 
-To perform the local semi-autonomous installation, users should modify configurations on [set_installation_options](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/set_installation_options) file. The local installation via cocoa's internal cache is selected whenever the environmental key `MANUAL_INSTALLATION` is set, as shown below:
+To perform the local semi-autonomous installation, users should modify configurations on [set_installation_options](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/set_installation_options) file. First, select the environmental key `MANUAL_INSTALLATION`:
 
     [Extracted from set_installation_options script] 
     
