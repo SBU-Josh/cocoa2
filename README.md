@@ -96,19 +96,14 @@ to clone the repository.
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:SBU-Josh/cocoa2.git
 
-(**Warning**) We assumed in the command above users have installed the pre-requisite packages (including git-lfs) via the recommended **Conda installation method**. With other installation method, `$CONDA_PREFIX/bin/git-lfs` should be replaced with `git-lfs`. 
-
 (**Warning**) We have a limited monthly quota in bandwidth for [Git LFS](https://git-lfs.github.com) files, and therefore we ask users to use good judgment in the number of times they clone Cocoa's main repository. 
 
-Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below
+Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below. Please choose the MINICONDA_INSTALLATION method if you are an advanced user and cannot work with CONDA.
 
     [Extracted from set_installation_options script]
     #  ---------------------------------------------------------------------------
     # HOW COCOA BE INSTALLED? -------------------------------
-
-    #export DOCKER_INSTALLATION=1
-    #export MINICONDA_INSTALLATION=1
-    #export MACOS_HOMEBREW_INSTALLATION=1
+    export MINICONDA_INSTALLATION=1
     #export MANUAL_INSTALLATION=1
     
 The user must uncomment the appropriate key, and then type the following command
