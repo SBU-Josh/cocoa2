@@ -24,7 +24,7 @@ external_modules/data/des_data/
 external_modules/data/sn_data/
 external_modules/data/simons_observatory/
 external_modules/data/h0licow_distance_chains/
-external_modules/spt_hiell_2020
+external_modules/data/spt_hiell_2020
 
 set_installation_options
 compile_external_modules
@@ -69,6 +69,7 @@ external_modules/code/PolyChordLite/dist/
 external_modules/code/planck/code/spt_clik/svnversion
 external_modules/code/class_public/build/
 external_modules/code/class_public/python/classy.c
+external_modules/code/class_public/class
 
 cobaya/cobaya/likelihoods/XXX
 cobaya/cobaya/likelihoods/des_y1
