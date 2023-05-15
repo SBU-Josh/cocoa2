@@ -96,7 +96,7 @@ The more straightforward way to install most prerequisites is via [Conda](https:
  (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
       conda activate cocoa 
-      conda run -n cocoa $CONDA_PREFIX/bin/pip install --no-cache-dir --root-user-action=ignore \
+      $CONDA_PREFIX/bin/pip install --no-cache-dir \
         'tensorflow-cpu==2.8.0' \
         'keras==2.8.0' \
         'keras-preprocessing==1.1.2' \
