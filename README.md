@@ -1,20 +1,20 @@
 # Table of contents
 1. [Overview of the Cobaya-CosmoLike Joint Architecture (Cocoa)](#overview)
-2. [Special Instructions for the SBU supercomputer](#sbu_overview) 
-    1. [Using Miniconda](#sbu_overview_anaconda)  
-3. [Installation of Cocoa's required packages](#required_packages)
+2. [Installation of Cocoa's required packages](#required_packages)
     1. [Via Conda](#required_packages_conda)
-4. [Installation of Cobaya base code](#cobaya_base_code)
-5. [Running Cobaya Examples](#cobaya_base_code_examples)
-6. [Running Cosmolike projects](#running_cosmolike_projects)
-7. [Creating Cosmolike projects](#creating_cosmolike_projects)
-8. [Appendix](#appendix)
+    2. [(expert) Via Cocoa's internal cache](#required_packages_cache)
+3. [Installation of Cobaya base code](#cobaya_base_code)
+4. [Running Cobaya Examples](#cobaya_base_code_examples)
+5. [Running Cosmolike projects](#running_cosmolike_projects)
+6. [Creating Cosmolike projects](#creating_cosmolike_projects)
+7. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
     1. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     2. [Running Jupyter Notebooks inside the Whovian-Cosmo docker container](#appendix_jupyter_whovian)
     3. [Summary Information about Cocoa's configuration files](#appendix_config_files)
-9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
-10. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
+    4. [Miniconda Installation](#sbu_overview_anaconda) 
+8. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
+9. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
  
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
@@ -24,49 +24,18 @@ Cocoa allows users to run [CosmoLike](https://github.com/CosmoLike) routines ins
 
 This readme file presents basic and advanced instructions for installing all [Cobaya](https://github.com/CobayaSampler) and [CosmoLike](https://github.com/CosmoLike) components.
 
-## Special Instructions for the SBU supercomputer <a name="sbu_overview"></a>
-
-### Using Miniconda <a name="sbu_overview_anaconda"></a>
-
-Download and run Miniconda installation script (please adapt `CONDA_DIR`):
-
-    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
-
-    mkdir $CONDA_DIR
-
-    wget https://repo.continuum.io/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh
-
-    /bin/bash Miniconda3-py37_4.8.3-Linux-x86_64.sh -f -b -p $CONDA_DIR
-
-After installation, users must source conda configuration file, see the line below (add such line to your $.bashrc$ file)
-
-    source $CONDA_DIR/etc/profile.d/conda.sh
-
-(**warning**) When running conda for the first time, use the instructions below to configure the use of channels
-
-    conda config --set auto_update_conda false 
-    conda config --set show_channel_urls true 
-    conda config --set auto_activate_base false 
-    conda config --prepend channels conda-forge 
-    conda config --set channel_priority strict 
-    conda init bash
-    
-(**warning**) Make sure you don't have system anaconda loaded via the command 
-
-    module unload anaconda
-
-Users can now go to section [Installation of Cocoa's required packages via conda](#required_packages_conda). 
-
 ## Installation of Cocoa's required packages <a name="required_packages"></a>
 
-[CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require many C, C++ and Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicate the installation of Cocoa in HPC environments and the verification of numerical results. This section standardize the package environment.
+[CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require C/C++/Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicates the installation of Cocoa in HPC systems and the verification of numerical results. Our instructions standardize the package environment.
 
-### Via Conda (best for Linux/HPC) <a name="required_packages_conda"></a>
+### Via Conda <a name="required_packages_conda"></a>
 
-The more straightforward way to install most prerequisites is via [Conda](https://github.com/conda/conda). Cocoa's internal scripts will then install any remaining missing packages, using a provided internal cache located at [cocoa_installation_libraries](https://github.com/SBU-Josh/cocoa2/tree/main/cocoa_installation_libraries). Assuming that the user had previously installed [Minicoda](https://docs.conda.io/en/latest/miniconda.html) (or [Anaconda](https://www.anaconda.com/products/individual)), the first step is to type the following commands to create the cocoa Conda environment.
+(**Warning**) If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see section [Miniconda Installation](#sbu_overview_anaconda).
+ 
+The most straightforward way to install most prerequisites is via [Conda](https://github.com/conda/conda). We assume here the user had previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). Type the following commands to create the cocoa Conda environment.
 
-    conda create --name cocoa python=3.7 --quiet --yes && \
-    conda install -n cocoa --quiet --yes  \
+    conda create --name cocoa python=3.7 --quiet --yes \
+      && conda install -n cocoa --quiet --yes  \
       'conda-forge::libgcc-ng=10.3.0' \
       'conda-forge::libstdcxx-ng=10.3.0' \
       'conda-forge::libgfortran-ng=10.3.0' \
@@ -74,34 +43,103 @@ The more straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::gcc_linux-64=10.3.0' \
       'conda-forge::gfortran_linux-64=10.3.0' \
       'conda-forge::openmpi=4.1.1' \
+      'conda-forge::sysroot_linux-64=2.17' \
       'conda-forge::git=2.33.1' \
       'conda-forge::git-lfs=3.0.2' \
       'conda-forge::hdf5=1.10.6' \
+      'conda-forge::git-lfs=3.0.2' \
       'conda-forge::cmake=3.21.3' \
       'conda-forge::boost=1.76.0' \
       'conda-forge::gsl=2.7' \
       'conda-forge::fftw=3.3.10' \
       'conda-forge::cfitsio=4.0.0' \
-      'conda-forge::openblas=0.3.20' \
+      'conda-forge::openblas=0.3.18' \
       'conda-forge::lapack=3.9.0' \
       'conda-forge::armadillo=10.7.3'\
+      'conda-forge::expat=2.4.1' \
       'conda-forge::cython=0.29.24' \
       'conda-forge::numpy=1.21.4' \
       'conda-forge::scipy=1.7.2' \
       'conda-forge::pandas=1.3.4' \
       'conda-forge::mpi4py=3.1.2' \
       'conda-forge::matplotlib=3.5.0' \
-      'conda-forge::astropy=4.3.1' \
+      'conda-forge::astropy=4.3.1'
+      
+ (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
+      conda activate cocoa 
+      $CONDA_PREFIX/bin/pip install --no-cache-dir \
+        'tensorflow-cpu==2.8.0' \
+        'keras==2.8.0' \
+        'keras-preprocessing==1.1.2' \
+        'torch==1.11.0+cpu' \
+        'torchvision==0.12.0+cpu' -f https://download.pytorch.org/whl/torch_stable.html
+
 With this installation method, users must activate the Conda environment whenever working with Cocoa, as shown below 
 
     $ conda activate cocoa
     
-When loading conda cocoa environment for the first time, users must install git-lfs
+When loading the conda cocoa environment for the first time, users must install git-lfs
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs install
 
-**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)** 
+**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**
+
+### (expert) Via Cocoa's internal cache <a name="required_packages_cache"></a>
+
+This method is slow and not advisable. When Conda is unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We provide a local copy of almost all required packages on Cocoa's cache folder named [cocoa_installation_libraries](https://github.com/CosmoLike/cocoa/tree/main/cocoa_installation_libraries). We assume the pre-installation of the following packages:
+
+   - [Bash](https://www.amazon.com/dp/B0043GXMSY/ref=cm_sw_em_r_mt_dp_x3UoFbDXSXRBT);
+   - [Git](https://git-scm.com) v1.8+;
+   - [Git LFS](https://git-lfs.github.com);
+   - [gcc](https://gcc.gnu.org) v10.*;
+   - [gfortran](https://gcc.gnu.org) v10.*;
+   - [g++](https://gcc.gnu.org) v10.*;
+   - [Python](https://www.python.org) v3.7.*;
+   - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
+   - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
+
+To perform the local semi-autonomous installation, users must modify flags written on the [set_installation_options](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/set_installation_options) file because the default behavior corresponds to installation via Conda. First, select the environmental key `MANUAL_INSTALLATION`:
+
+    [Extracted from set_installation_options script] 
+    
+    #  ---------------------------------------------------------------------------
+    # HOW COCOA BE INSTALLED? -------------------------------
+
+    #export MINICONDA_INSTALLATION=1
+    export MANUAL_INSTALLATION=1
+    
+Finally, the user needs to set the following environmental keys
+ 
+    [Extracted from set_installation_options script]
+  
+    elif [ -n "${MANUAL_INSTALLATION}" ]; then
+
+      export GLOBAL_PACKAGES_LOCATION=/usr/local
+      export PYTHON_VERSION=3
+      export FORTRAN_COMPILER=gfortran
+    
+      export C_COMPILER=gcc
+      export CXX_COMPILER=g++
+      export GLOBALPYTHON3=python3
+      export MPI_FORTRAN_COMPILER=mpif90
+      export MPI_CXX_COMPILER=mpicc
+      export MPI_CC_COMPILER=mpicxx
+    
+      # In case global packages are available 
+      #export IGNORE_DISTUTILS_INSTALLATION=1
+      #export IGNORE_OPENBLAS_INSTALLATION=1
+      #export IGNORE_XZ_INSTALLATION=1
+      #export IGNORE_ALL_PIP_INSTALLATION=1
+      #export IGNORE_CMAKE_INSTALLATION=1
+      #export IGNORE_CPP_BOOST_INSTALLATION=1
+      #export IGNORE_CPP_ARMA_INSTALLATION=1
+      #export IGNORE_CPP_SPDLOG_INSTALLATION=1
+      #export IGNORE_C_GSL_INSTALLATION=1
+      #export IGNORE_C_CFITSIO_INSTALLATION=1
+      #export IGNORE_C_FFTW_INSTALLATION=1 
+      #export IGNORE_OPENBLAS_INSTALLATION=1
+      #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
    
 (**expert**) Our scripts never install packages on `$HOME/.local`. Doing so could impose incompatibilities between Cobaya and different projects (or break the user's environment for other projects). All requirements for Cocoa are installed at
 
@@ -110,8 +148,8 @@ When loading conda cocoa environment for the first time, users must install git-
     Cocoa/.local/lib
     Cocoa/.local/share
 
-**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**
-
+**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)** 
+       
 ## Installation of Cobaya base code <a name="cobaya_base_code"></a>
 
 Type:
@@ -124,19 +162,14 @@ to clone the repository.
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:SBU-Josh/cocoa2.git
 
-(**Warning**) We assumed in the command above users have installed the pre-requisite packages (including git-lfs) via the recommended **Conda installation method**. With other installation method, `$CONDA_PREFIX/bin/git-lfs` should be replaced with `git-lfs`. 
-
 (**Warning**) We have a limited monthly quota in bandwidth for [Git LFS](https://git-lfs.github.com) files, and therefore we ask users to use good judgment in the number of times they clone Cocoa's main repository. 
 
-Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below
+Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below. Please choose the MINICONDA_INSTALLATION method unless you cannot work with CONDA.
 
     [Extracted from set_installation_options script]
     #  ---------------------------------------------------------------------------
     # HOW COCOA BE INSTALLED? -------------------------------
-
-    #export DOCKER_INSTALLATION=1
-    #export MINICONDA_INSTALLATION=1
-    #export MACOS_HOMEBREW_INSTALLATION=1
+    export MINICONDA_INSTALLATION=1
     #export MANUAL_INSTALLATION=1
     
 The user must uncomment the appropriate key, and then type the following command
@@ -337,3 +370,29 @@ The installation of Cocoa required packages, as well as Boltzmann and Likelihood
  - [clean_all](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/clean_all)
 
     This file has instructions on how to clean keys associated with the Python virtual environment and delete the compilation of the Boltzmann, Sampler, and likelihood codes, and local installation of the required packages installed by the [setup_cocoa_installation_packages].
+    
+### Miniconda Installation <a name="sbu_overview_anaconda"></a>
+
+(**warning**) Make sure you don't have system anaconda loaded via the command 
+
+    module unload anaconda
+
+Download and run Miniconda installation script (please adapt `CONDA_DIR`):
+
+    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
+
+    mkdir $CONDA_DIR
+
+    wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
+    
+    /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
+
+After installation, users must source conda configuration file
+
+    source $CONDA_DIR/etc/profile.d/conda.sh \
+    && conda config --set auto_update_conda false \
+    && conda config --set show_channel_urls true \
+    && conda config --set auto_activate_base false \
+    && conda config --prepend channels conda-forge \
+    && conda config --set channel_priority strict \
+    && conda init bash
