@@ -60,7 +60,7 @@ Users can now go to section [Installation of Cocoa's required packages via conda
 
 ### Via Conda <a name="required_packages_conda"></a>
 
-The most straightforward way to install most prerequisites is via [Conda](https://github.com/conda/conda). Cocoa's internal scripts will then install any remaining missing packages using our provided internal cache. We assume here the user had previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). Type the following commands to create the cocoa Conda environment.
+The most straightforward way to install most prerequisites is via [Conda](https://github.com/conda/conda). We assume here the user had previously installed either [Minicoda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual). Type the following commands to create the cocoa Conda environment.
 
     conda create --name cocoa python=3.7 --quiet --yes \
       && conda install -n cocoa --quiet --yes  \
