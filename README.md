@@ -158,7 +158,7 @@ Type:
 
 to clone the repository. 
 
-(**expert**) Cocoa developers with set ssh keys  in GitHub may find more convenient to use the command
+(**expert**) Cocoa developers with set ssh keys in GitHub should use the command
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:SBU-Josh/cocoa2.git
 
