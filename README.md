@@ -1,20 +1,19 @@
 # Table of contents
 1. [Overview of the Cobaya-CosmoLike Joint Architecture (Cocoa)](#overview)
-2. [Special Instructions for the SBU supercomputer](#sbu_overview) 
-    1. [Using Miniconda](#sbu_overview_anaconda)  
-3. [Installation of Cocoa's required packages](#required_packages)
+2. [Installation of Cocoa's required packages](#required_packages)
     1. [Via Conda](#required_packages_conda)
-4. [Installation of Cobaya base code](#cobaya_base_code)
-5. [Running Cobaya Examples](#cobaya_base_code_examples)
-6. [Running Cosmolike projects](#running_cosmolike_projects)
-7. [Creating Cosmolike projects](#creating_cosmolike_projects)
-8. [Appendix](#appendix)
+    2. [Miniconda Installation](#sbu_overview_anaconda) 
+3. [Installation of Cobaya base code](#cobaya_base_code)
+4. [Running Cobaya Examples](#cobaya_base_code_examples)
+5. [Running Cosmolike projects](#running_cosmolike_projects)
+6. [Creating Cosmolike projects](#creating_cosmolike_projects)
+7. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
     1. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     2. [Running Jupyter Notebooks inside the Whovian-Cosmo docker container](#appendix_jupyter_whovian)
     3. [Summary Information about Cocoa's configuration files](#appendix_config_files)
-9. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
-10. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
+8. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
+9. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
  
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
@@ -26,33 +25,6 @@ This readme file presents basic and advanced instructions for installing all [Co
 
 ## Special Instructions for the SBU supercomputer <a name="sbu_overview"></a>
 
-### Using Miniconda <a name="sbu_overview_anaconda"></a>
-
-(**warning**) Make sure you don't have system anaconda loaded via the command 
-
-    module unload anaconda
-
-Download and run Miniconda installation script (please adapt `CONDA_DIR`):
-
-    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
-
-    mkdir $CONDA_DIR
-
-    wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
-    
-    /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
-
-After installation, users must source conda configuration file
-
-    source $CONDA_DIR/etc/profile.d/conda.sh \
-    && conda config --set auto_update_conda false \
-    && conda config --set show_channel_urls true \
-    && conda config --set auto_activate_base false \
-    && conda config --prepend channels conda-forge \
-    && conda config --set channel_priority strict \
-    && conda init bash
-    
-Users can now go to section [Installation of Cocoa's required packages via conda](#required_packages_conda). 
 
 ## Installation of Cocoa's required packages <a name="required_packages"></a>
 
@@ -92,6 +64,8 @@ The most straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::mpi4py=3.1.2' \
       'conda-forge::matplotlib=3.5.0' \
       'conda-forge::astropy=4.3.1'
+      
+ (**Warning**) If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see setion [Miniconda Installation](##sbu_overview_anaconda).
  
  (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
@@ -121,6 +95,34 @@ When loading the conda cocoa environment for the first time, users must install 
     Cocoa/.local/share
 
 **Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**
+
+### Install Miniconda <a name="sbu_overview_anaconda"></a>
+
+(**warning**) Make sure you don't have system anaconda loaded via the command 
+
+    module unload anaconda
+
+Download and run Miniconda installation script (please adapt `CONDA_DIR`):
+
+    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
+
+    mkdir $CONDA_DIR
+
+    wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
+    
+    /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
+
+After installation, users must source conda configuration file
+
+    source $CONDA_DIR/etc/profile.d/conda.sh \
+    && conda config --set auto_update_conda false \
+    && conda config --set show_channel_urls true \
+    && conda config --set auto_activate_base false \
+    && conda config --prepend channels conda-forge \
+    && conda config --set channel_priority strict \
+    && conda init bash
+    
+Users can now go to section [Installation of Cocoa's required packages via conda](#required_packages_conda). 
 
 ## Installation of Cobaya base code <a name="cobaya_base_code"></a>
 
