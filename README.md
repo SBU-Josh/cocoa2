@@ -2,6 +2,7 @@
 1. [Overview of the Cobaya-CosmoLike Joint Architecture (Cocoa)](#overview)
 2. [Installation of Cocoa's required packages](#required_packages)
     1. [Via Conda](#required_packages_conda)
+    2. [(expert) Via Cocoa's internal cache](#required_packages_cache)
 3. [Installation of Cobaya base code](#cobaya_base_code)
 4. [Running Cobaya Examples](#cobaya_base_code_examples)
 5. [Running Cosmolike projects](#running_cosmolike_projects)
@@ -81,6 +82,73 @@ With this installation method, users must activate the Conda environment wheneve
 When loading the conda cocoa environment for the first time, users must install git-lfs
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs install
+
+**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**
+
+### (expert) Via Cocoa's internal cache <a name="required_packages_cache"></a>
+
+This method is slow and not advisable. When Conda is unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We also provide a local copy of almost all required packages on Cocoa's cache folder named [cocoa_installation_libraries](https://github.com/CosmoLike/cocoa/tree/main/cocoa_installation_libraries). We assume the pre-installation of the following packages:
+
+   - [Bash](https://www.amazon.com/dp/B0043GXMSY/ref=cm_sw_em_r_mt_dp_x3UoFbDXSXRBT);
+   - [Git](https://git-scm.com) v1.8+;
+   - [Git LFS](https://git-lfs.github.com);
+   - [gcc](https://gcc.gnu.org) v10.*;
+   - [gfortran](https://gcc.gnu.org) v10.*;
+   - [g++](https://gcc.gnu.org) v10.*;
+   - [Python](https://www.python.org) v3.7.*;
+   - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
+   - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
+
+To perform the local semi-autonomous installation, users should follow the procedures in section [Installation of cocoa base code](https://github.com/CosmoLike/cocoa#installation-of-cocoa-base-code), adding, however, additional configurations on [set_installation_options](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/set_installation_options) script that are explained below.
+
+The local installation via cocoa's internal cache is selected whenever the environmental key `MANUAL_INSTALLATION` is set:
+
+    [Extracted from set_installation_options script] 
+    
+    #  ---------------------------------------------------------------------------
+    # HOW COCOA BE INSTALLED? -------------------------------
+
+    #export MINICONDA_INSTALLATION=1
+    export MANUAL_INSTALLATION=1
+    
+The user also needs to set the following environmental keys
+ 
+    [Extracted from set_installation_options script]
+  
+    elif [ -n "${MANUAL_INSTALLATION}" ]; then
+
+      export GLOBAL_PACKAGES_LOCATION=/usr/local
+      export PYTHON_VERSION=3
+      export FORTRAN_COMPILER=gfortran
+    
+      export C_COMPILER=gcc
+      export CXX_COMPILER=g++
+      export GLOBALPYTHON3=python3
+      export MPI_FORTRAN_COMPILER=mpif90
+      export MPI_CXX_COMPILER=mpicc
+      export MPI_CC_COMPILER=mpicxx
+    
+      # In case global packages are available 
+      #export IGNORE_DISTUTILS_INSTALLATION=1
+      #export IGNORE_OPENBLAS_INSTALLATION=1
+      #export IGNORE_XZ_INSTALLATION=1
+      #export IGNORE_ALL_PIP_INSTALLATION=1
+      #export IGNORE_CMAKE_INSTALLATION=1
+      #export IGNORE_CPP_BOOST_INSTALLATION=1
+      #export IGNORE_CPP_ARMA_INSTALLATION=1
+      #export IGNORE_CPP_SPDLOG_INSTALLATION=1
+      #export IGNORE_C_GSL_INSTALLATION=1
+      #export IGNORE_C_CFITSIO_INSTALLATION=1
+      #export IGNORE_C_FFTW_INSTALLATION=1 
+      #export IGNORE_OPENBLAS_INSTALLATION=1
+      #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
+   
+(**expert**) Our scripts never install packages on `$HOME/.local`. Doing so could impose incompatibilities between Cobaya and different projects (or break the user's environment for other projects). All requirements for Cocoa are installed at
+
+    Cocoa/.local/bin
+    Cocoa/.local/include
+    Cocoa/.local/lib
+    Cocoa/.local/share
 
 **Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)** 
        
