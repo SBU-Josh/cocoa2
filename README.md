@@ -64,8 +64,6 @@ The most straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::matplotlib=3.5.0' \
       'conda-forge::astropy=4.3.1'
       
-
- 
  (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
       conda activate cocoa 
@@ -121,8 +119,6 @@ After installation, users must source conda configuration file
     && conda config --set channel_priority strict \
     && conda init bash
     
-Users can now go to section [Installation of Cocoa's required packages via conda](#required_packages_conda). 
-
 ## Installation of Cobaya base code <a name="cobaya_base_code"></a>
 
 Type:
