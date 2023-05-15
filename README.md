@@ -2,7 +2,6 @@
 1. [Overview of the Cobaya-CosmoLike Joint Architecture (Cocoa)](#overview)
 2. [Installation of Cocoa's required packages](#required_packages)
     1. [Via Conda](#required_packages_conda)
-    2. [Miniconda Installation](#sbu_overview_anaconda) 
 3. [Installation of Cobaya base code](#cobaya_base_code)
 4. [Running Cobaya Examples](#cobaya_base_code_examples)
 5. [Running Cosmolike projects](#running_cosmolike_projects)
@@ -12,6 +11,7 @@
     1. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
     2. [Running Jupyter Notebooks inside the Whovian-Cosmo docker container](#appendix_jupyter_whovian)
     3. [Summary Information about Cocoa's configuration files](#appendix_config_files)
+    4. [Miniconda Installation](#sbu_overview_anaconda) 
 8. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
 9. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
  
@@ -83,42 +83,7 @@ When loading the conda cocoa environment for the first time, users must install 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs install
 
 **Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)** 
-   
-(**expert**) Our scripts never install packages on `$HOME/.local`. Doing so could impose incompatibilities between Cobaya and different projects (or break the user's environment for other projects). All requirements for Cocoa are installed at
-
-    Cocoa/.local/bin
-    Cocoa/.local/include
-    Cocoa/.local/lib
-    Cocoa/.local/share
-
-**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**
-
-### Miniconda Installation <a name="sbu_overview_anaconda"></a>
-
-(**warning**) Make sure you don't have system anaconda loaded via the command 
-
-    module unload anaconda
-
-Download and run Miniconda installation script (please adapt `CONDA_DIR`):
-
-    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
-
-    mkdir $CONDA_DIR
-
-    wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
-    
-    /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
-
-After installation, users must source conda configuration file
-
-    source $CONDA_DIR/etc/profile.d/conda.sh \
-    && conda config --set auto_update_conda false \
-    && conda config --set show_channel_urls true \
-    && conda config --set auto_activate_base false \
-    && conda config --prepend channels conda-forge \
-    && conda config --set channel_priority strict \
-    && conda init bash
-    
+       
 ## Installation of Cobaya base code <a name="cobaya_base_code"></a>
 
 Type:
@@ -344,3 +309,29 @@ The installation of Cocoa required packages, as well as Boltzmann and Likelihood
  - [clean_all](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/clean_all)
 
     This file has instructions on how to clean keys associated with the Python virtual environment and delete the compilation of the Boltzmann, Sampler, and likelihood codes, and local installation of the required packages installed by the [setup_cocoa_installation_packages].
+    
+### Miniconda Installation <a name="sbu_overview_anaconda"></a>
+
+(**warning**) Make sure you don't have system anaconda loaded via the command 
+
+    module unload anaconda
+
+Download and run Miniconda installation script (please adapt `CONDA_DIR`):
+
+    export CONDA_DIR=/gpfs/home/vinmirandabr/miniconda
+
+    mkdir $CONDA_DIR
+
+    wget https://repo.continuum.io/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
+    
+    /bin/bash Miniconda3-py38_4.12.0-Linux-x86_64.sh -f -b -p $CONDA_DIR
+
+After installation, users must source conda configuration file
+
+    source $CONDA_DIR/etc/profile.d/conda.sh \
+    && conda config --set auto_update_conda false \
+    && conda config --set show_channel_urls true \
+    && conda config --set auto_activate_base false \
+    && conda config --prepend channels conda-forge \
+    && conda config --set channel_priority strict \
+    && conda init bash
