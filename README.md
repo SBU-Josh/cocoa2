@@ -180,9 +180,7 @@ Finally, type
 
     $ source compile_external_modules
     
-to compile CAMB, CLASS, Planck and Polychord.
-
-(**expert**) If the user wants to compile only a subset of these packages, then read the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
+to compile CAMB, CLASS, Planck and Polychord. If the user wants to compile only a subset of these packages, then read the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
 
 ## Running Cobaya Examples <a name="cobaya_base_code_examples"></a>
 
