@@ -10,11 +10,10 @@
 7. [Appendix](#appendix)
     1. [Proper Credits](#appendix_proper_credits)
     1. [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly)
-    2. [Running Jupyter Notebooks inside the Whovian-Cosmo docker container](#appendix_jupyter_whovian)
-    3. [Summary Information about Cocoa's configuration files](#appendix_config_files)
-    4. [Miniconda Installation](#sbu_overview_anaconda) 
+    2. [Summary Information about Cocoa's configuration files](#appendix_config_files)
+    3. [Miniconda Installation](#sbu_overview_anaconda) 
 8. [The projects folder (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/projects)
-9. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-UNESP-2022-COCOA/cocoa2/tree/main/Cocoa/external_modules/code)
+9. [Adapting new modified CAMB/CLASS (external readme)](https://github.com/SBU-Josh/cocoa2/tree/main/Cocoa/external_modules/code)
  
 ## Overview of the [Cobaya](https://github.com/CobayaSampler)-[CosmoLike](https://github.com/CosmoLike) Joint Architecture (Cocoa) <a name="overview"></a>
 
@@ -65,7 +64,7 @@ The most straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::matplotlib=3.5.0' \
       'conda-forge::astropy=4.3.1'
       
- (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
+ (**warning**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
       conda activate cocoa 
       $CONDA_PREFIX/bin/pip install --no-cache-dir \
@@ -141,7 +140,7 @@ Finally, the user needs to set the following environmental keys
       #export IGNORE_OPENBLAS_INSTALLATION=1
       #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
    
-(**expert**) Our scripts never install packages on `$HOME/.local`. Doing so could impose incompatibilities between Cobaya and different projects (or break the user's environment for other projects). All requirements for Cocoa are installed at
+Our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
 
     Cocoa/.local/bin
     Cocoa/.local/include
@@ -158,13 +157,11 @@ Type:
 
 to clone the repository. 
 
-(**expert**) Cocoa developers with set ssh keys  in GitHub may find more convenient to use the command
+(**expert**) Cocoa developers with set ssh keys in GitHub should use the command
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:SBU-Josh/cocoa2.git
 
-(**Warning**) We have a limited monthly quota in bandwidth for [Git LFS](https://git-lfs.github.com) files, and therefore we ask users to use good judgment in the number of times they clone Cocoa's main repository. 
-
-Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below. Please choose the MINICONDA_INSTALLATION method unless you cannot work with CONDA.
+Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below:
 
     [Extracted from set_installation_options script]
     #  ---------------------------------------------------------------------------
@@ -176,17 +173,13 @@ The user must uncomment the appropriate key, and then type the following command
 
     $ source setup_cocoa_installation_packages
 
-This script decompress the data files and install all packages that may have been left out in the Conda/Docker/Manual installation. 
-
-(**expert**) File decompression should only take a few minutes, while package installation time may range from a few minutes (if installation via *Conda* or *Docker* was selected) to more than one hour (if installation *via Cocoa's internal scripts and cache* was selected). 
+This script decompress the data files and install all packages that may have been left out in the Conda/Docker/Manual installation. File decompression should only take a few minutes, while package installation time ranges from a few minutes (installation via *Conda*) to more than one hour (installation *via Cocoa's internal scripts and cache*). 
 
 Finally, type
 
     $ source compile_external_modules
     
-to compile CAMB, CLASS, Planck and Polychord.
-
-(**expert**) If the user wants recompile just one of these packages, read the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
+to compile CAMB, CLASS, Planck and Polychord. If the user wants to compile only a subset of these packages, then read the appendix [Compiling Boltzmann, CosmoLike and Likelihood codes separatelly](#appendix_compile_separatelly).
 
 ## Running Cobaya Examples <a name="cobaya_base_code_examples"></a>
 
@@ -204,9 +197,9 @@ Assuming the user opted for the easier *Conda installation* and located the term
 
     $(cocoa) source start_cocoa
 
-(**warning**) Users will see a terminal that looks like this: `$(Cocoa)(.local)`. *This is a feature, not a bug*! 
+Users will see a terminal that looks like this: `$(Cocoa)(.local)`. *This is a feature, not a bug*! 
 
-(**expert**) Why `$(Cocoa)(.local)` is a feature, not a bug? The Conda environment can be the same for all Cocoa instances, with [start_cocoa](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/start_cocoa)/[stop_cocoa](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/stop_cocoa) loading/unloading the corresponding `LD_LIBRARY_PATH`, `CPATH`, `C_INCLUDE_PATH`, `CPLUS_INCLUDE_PATH` and `PATH`. *Why more than one Cocoa instance?* While users may be running chains in one instance, they might use a second instantiation to make experimental changes (in our experience this happens a lot).
+(**expert**) Why did we choose to have two environments? The Conda environment should be the same for all Cocoa instances, with [start_cocoa](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/start_cocoa)/[stop_cocoa](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/stop_cocoa) scripts loading/unloading the appropriate `LD_LIBRARY_PATH`, `CPATH`, `C_INCLUDE_PATH`, `CPLUS_INCLUDE_PATH` and `PATH` variables associated with each instance. While users may be running chains in one Cocoa instance, they can install and use a second Cocoa instantiation to make experimental changes.
 
 **Step 4 of 5**: select the number of OpenMP cores
     
@@ -223,22 +216,15 @@ MCMC:
 
      $(cocoa)(.local) mpirun -n 4 --mca btl tcp,self --bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS} cobaya-run ./projects/example/EXAMPLE_MCMC1.yaml -f
 
-(**expert**) Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38). Users outraged by the overhead that TCP will bring over Infiniband can perform the [installation via Cocoa's internal cache](#required_packages_cache). 
+(**expert**) Why the `--mca btl tcp,self` flag? Conda-forge developers don't [compile OpenMPI with Infiniband compatibility](https://github.com/conda-forge/openmpi-feedstock/issues/38).
 
-(**expert**) Why the `--bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS}` flag? To enable hybrid MPI + OpenMP run at UofA's supercomputer. *Users should check if the flag is necessary on their particular environment.*
+(**expert**) Why the `--bind-to core --rank-by core --map-by numa:pe=${OMP_NUM_THREADS}` flag? To enable hybrid MPI + OpenMP!
 
 Once the work is done, type:
 
     $(cocoa)(.local) source stop_cocoa
-
-(**expert**) [stop_cocoa](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/stop_cocoa) will also restore `OMP_NUM_THREADS` to its original value before the script [start_cocoa](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/start_cocoa) was sourced. 
-
-and (optional)  
-    
     $(cocoa) conda deactivate cocoa
-
-(**expert**) Why is the deactivation of the cocoa Conda environment flag optional? The Cocoa Conda environment can be helpful in many types of projects!
-
+    
 ## Running Cosmolike projects <a name="running_cosmolike_projects"></a> 
 
 The projects folder was designed to include all Cosmolike projects. Like the last section, we assume the user opted for the easier *Conda installation*, and located the terminal at the folder *where Cocoa was cloned*.
