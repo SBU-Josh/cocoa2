@@ -3,7 +3,7 @@
 2. [Special Instructions for the SBU supercomputer](#sbu_overview) 
     1. [Using Miniconda](#sbu_overview_anaconda)  
 3. [Installation of Cocoa's required packages](#required_packages)
-    1. [Via Conda (best for Linux)](#required_packages_conda)
+    1. [Via Conda](#required_packages_conda)
 4. [Installation of Cobaya base code](#cobaya_base_code)
 5. [Running Cobaya Examples](#cobaya_base_code_examples)
 6. [Running Cosmolike projects](#running_cosmolike_projects)
