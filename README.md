@@ -162,8 +162,6 @@ to clone the repository.
 
     $(cocoa) $CONDA_PREFIX/bin/git-lfs clone git@github.com:SBU-Josh/cocoa2.git
 
-(**Warning**) We have a limited monthly quota in bandwidth for [Git LFS](https://git-lfs.github.com) files, and therefore we ask users to use good judgment in the number of times they clone Cocoa's main repository. 
-
 Cocoa is made aware of the chosen installation method of required packages via special environment keys located on the [set_installation_options](https://github.com/SBU-Josh/cocoa2/blob/main/Cocoa/set_installation_options) script (located at Cocoa/ subdirectory), as shown below. Please choose the MINICONDA_INSTALLATION method unless you cannot work with CONDA.
 
     [Extracted from set_installation_options script]
