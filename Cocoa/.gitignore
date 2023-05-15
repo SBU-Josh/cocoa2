@@ -1,6 +1,6 @@
 chains/
 share/
-include/
+#include/
 .local/
 *.out
 core.*
