@@ -4,8 +4,6 @@
     1. [Using Miniconda](#sbu_overview_anaconda)  
 3. [Installation of Cocoa's required packages](#required_packages)
     1. [Via Conda (best for Linux)](#required_packages_conda)
-    2. [Via Docker (best for MacOS/Windows)](#required_packages_docker)
-    3. [(expert) Via Cocoa's internal cache](#required_packages_cache)
 4. [Installation of Cobaya base code](#cobaya_base_code)
 5. [Running Cobaya Examples](#cobaya_base_code_examples)
 6. [Running Cosmolike projects](#running_cosmolike_projects)
@@ -110,103 +108,6 @@ When loading conda cocoa environment for the first time, users must install git-
     $(cocoa) $CONDA_PREFIX/bin/git-lfs install
 
 **Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)** 
-
-### Via Docker (best for MacOS/Windows) <a name="required_packages_docker"></a>
-
-Docker installation will allow users to run Cocoa inside an instantiation of the [Whovian-Cosmo](https://hub.docker.com/r/vivianmiranda/whovian-cosmo) docker image (i.e. a docker container!). Installation of the [docker engine](https://docs.docker.com/engine/) on local PCs is a straightforward process, but it does require `sudo` privileges (see Docker's [official documentation](https://docs.docker.com/engine/install/) for OS-specific instructions).
-
-  On macOS, type:
-
-    $ docker run -it -p 8080:8888 -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cosmo:version-1.0.3
-
-Linux users must type the following command instead:
-
-    $ docker run -it -p 8080:8888 --user $(id -u):$(id -g) -v $(pwd):/home/whovian/host/ -v ~/.ssh:/home/whovian/.ssh:ro vivianmiranda/whovian-cosmo:version-1.0.3
-
-(**warning**) When running the command `docker run (...)/whovian-cosmo:version-1.0.3` for the first time, the docker engine will automatically download the corresponding image. This step may take some time, as the [Whovian-Cosmo](https://hub.docker.com/r/vivianmiranda/whovian-cosmo) image has approximately 700 Megabytes.
-
-(**expert**) The flag `-v ~/.ssh:/home/whovian/.ssh:ro` allows users to pull, push and clone GitHub repositories from inside the container using the host ssh keys. Users must invoke the command on the parent directory of the path where access inside the docker container is sought. 
-
-(**expert**) The flag `-p 8080:8888` forward the container port 8888 to the local `8080`. This port forwarding is in an important fact to understand when reading the appendix [Running Jupyter Notebooks inside the Whovian-Cosmo docker container](#appendix_jupyter_whovian).
-
-  The last step is to access the folder `/home/whovian/host/` where the host files have been mounted:
-
-    $ cd /home/whovian/host/
-
-**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**  
-
-(**warning**) There isn't permanent storage outside `/home/whovian/host/`. Be aware of this fact to not lose any work
-
-(**expert**) Most HPC systems don't allow users to run docker containers via the standard [docker engine](https://docs.docker.com/engine/) for [security reasons](https://www.reddit.com/r/docker/comments/7y2yp2/why_is_singularity_used_as_opposed_to_docker_in/?utm_source=share&utm_medium=web2x&context=3). There is, however, an alternative engine called [Singularity](https://sylabs.io/guides/3.6/user-guide/index.html) that is in compliance with most HPC requirements. The [Singularity](https://sylabs.io/guides/3.6/user-guide/index.html) engine installation requires administrative privileges, but many HPC enviroments have already adopted it. To run docker images with Singularity, go to the folder you want to store the image and type:
-
-    $ singularity build whovian-cosmo docker://vivianmiranda/whovian-cosmo
-
-This command will download the [Whovian-Cosmo](https://hub.docker.com/r/vivianmiranda/whovian-cosmo) image and convert it to a format that can be understood by Singularity (this might take a few minutes). To run the container interactively, type:
-
-    $ singularity shell --no-home --bind /path/to/cocoa:/home/whovian/host --bind ~/.ssh:/home/whovian/.ssh:ro whovian-cosmo
-
-**Users can now proceed to the section [Installation of Cobaya base code](#cobaya_base_code)**
-
-### (expert) Via Cocoa's internal cache <a name="required_packages_cache"></a>
-
-(**Warning**) This method is slow, not advisable. It does, however, provide the experienced user more flexibility in choosing the compiler, python and package version. Another advantage to the experienced user is that OpenMPI provided by [conda-forge](https://conda-forge.org) is [incompatible with Infiniband]((https://github.com/conda-forge/openmpi-feedstock/issues/38)). Flexibility may indeed render more optimal runtimes at the expense of some additional headaches! 
-
-Whenever Conda or Docker installation procedures are unavailable, the user can still perform a local semi-autonomous installation on Linux based on a few scripts we implemented. We also provide a local copy of almost all required packages on Cocoa's cache folder named [cocoa_installation_libraries](https://github.com/CosmoLike/cocoa/tree/main/cocoa_installation_libraries) (there are HPC machines where compute nodes don't have internet access, NASA Pleiades being one example). We, therefore, only assume the pre-installation of the following packages to perform the local setup via Cocoa's internal cache:
-
-   - [Bash](https://www.amazon.com/dp/B0043GXMSY/ref=cm_sw_em_r_mt_dp_x3UoFbDXSXRBT);
-   - [Git](https://git-scm.com) v1.8+;
-   - [Git LFS](https://git-lfs.github.com);
-   - [gcc](https://gcc.gnu.org) v10.*;
-   - [gfortran](https://gcc.gnu.org) v10.*;
-   - [g++](https://gcc.gnu.org) v10.*;
-   - [Python](https://www.python.org) v3.7.*;
-   - [PIP package manager](https://pip.pypa.io/en/stable/installing/)
-   - [Python Virtual Environment](https://www.geeksforgeeks.org/python-virtual-environment/)
-
-To perform the local semi-autonomous installation, users should follow the procedures on section [Installation of cocoa base code](https://github.com/CosmoLike/cocoa#installation-of-cocoa-base-code), adding, however, the many additional configurations on [set_installation_options](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/set_installation_options) script that are explained below.
-
-The local installation via cocoa's internal cache is selected whenever the environmental key `MANUAL_INSTALLATION` is set:
-
-    [Extracted from set_installation_options script] 
-    
-    #  ---------------------------------------------------------------------------
-    # HOW COCOA BE INSTALLED? -------------------------------
-
-    #export DOCKER_INSTALLATION=1
-    #export MINICONDA_INSTALLATION=1
-    export MANUAL_INSTALLATION=1
-    
-The user also needs to set the following self-explanatory environmental keys on [set_installation_options](https://github.com/CosmoLike/cocoa/blob/main/Cocoa/set_installation_options):
- 
-    [Extracted from set_installation_options script]
-  
-    elif [ -n "${MANUAL_INSTALLATION}" ]; then
-
-      export GLOBAL_PACKAGES_LOCATION=/usr/local
-      export PYTHON_VERSION=3
-      export FORTRAN_COMPILER=gfortran
-    
-      export C_COMPILER=gcc
-      export CXX_COMPILER=g++
-      export GLOBALPYTHON3=python3
-      export MPI_FORTRAN_COMPILER=mpif90
-      export MPI_CXX_COMPILER=mpicc
-      export MPI_CC_COMPILER=mpicxx
-    
-      # In case global packages are available 
-      #export IGNORE_DISTUTILS_INSTALLATION=1
-      #export IGNORE_OPENBLAS_INSTALLATION=1
-      #export IGNORE_XZ_INSTALLATION=1
-      #export IGNORE_ALL_PIP_INSTALLATION=1
-      #export IGNORE_CMAKE_INSTALLATION=1
-      #export IGNORE_CPP_BOOST_INSTALLATION=1
-      #export IGNORE_CPP_ARMA_INSTALLATION=1
-      #export IGNORE_CPP_SPDLOG_INSTALLATION=1
-      #export IGNORE_C_GSL_INSTALLATION=1
-      #export IGNORE_C_CFITSIO_INSTALLATION=1
-      #export IGNORE_C_FFTW_INSTALLATION=1 
-      #export IGNORE_OPENBLAS_INSTALLATION=1
-      #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
    
 (**expert**) Our scripts never install packages on `$HOME/.local`. Doing so could impose incompatibilities between Cobaya and different projects (or break the user's environment for other projects). All requirements for Cocoa are installed at
 
@@ -414,30 +315,6 @@ To avoid excessive compilation times during development, users can use following
     $(cocoa)(.local) source ./installation_scripts/setup_polychord
 
 Here we assumed that Cocoa's private python environment, `(.local)`, was already set.
-
-### Running Jupyter Notebooks inside the Whovian-Cosmo docker container <a name="appendix_jupyter_whovian"></a>
-
-[Cobaya](https://github.com/CobayaSampler), the framework that Cocoa heavily depends on has excellent integration with Jupyter notebooks. Below, some in-depth instructions to run notebooks inside the [Whovian-Cosmo](https://hub.docker.com/r/vivianmiranda/whovian-cosmo) docker container
-
-To start a jupyter notebook, type the following command on the docker container:
-
-    $ jupyter notebook --no-browser
-
-The terminal will show a message similar to the following template:
-
-    [... NotebookApp] Writing notebook server cookie secret to /home/whovian/.local/share/jupyter/runtime/notebook_cookie_secret
-    [... NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
-    [... NotebookApp] Serving notebooks from local directory: /home/whovian/host
-    [... NotebookApp] Jupyter Notebook 6.1.1 is running at:
-    [... NotebookApp] http://f0a13949f6b5:8888/?token=XXX
-    [... NotebookApp] or http://127.0.0.1:8888/?token=XXX
-    [... NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-
-where `XXX` in the line `[... NotebookApp] or http://127.0.0.1:8888/?token=XXX` is the token you need to save to access the notebook. We will assume you are running the docker container in a host server with URL `your_sever.com` that you are accessing via ssh. From your local PC type:
-
-    $ ssh your_username@your_sever.com -L 8080:localhost:8080
-
-   Finally, go to your browser and type `http://localhost:8080/?token=XXX`, where `XXX` is the previously saved token. For security, we do not allow password-based connections to the jupyter notebooks.
 
 ### Summary Information about Cocoa's configuration files <a name="appendix_config_files"></a>
 
