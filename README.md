@@ -23,9 +23,6 @@ Cocoa allows users to run [CosmoLike](https://github.com/CosmoLike) routines ins
 
 This readme file presents basic and advanced instructions for installing all [Cobaya](https://github.com/CobayaSampler) and [CosmoLike](https://github.com/CosmoLike) components.
 
-## Special Instructions for the SBU supercomputer <a name="sbu_overview"></a>
-
-
 ## Installation of Cocoa's required packages <a name="required_packages"></a>
 
 [CosmoLike](https://github.com/CosmoLike) and [Cobaya](https://github.com/CobayaSampler) require many C, C++ and Python packages to be installed as prerequisites. The overabundance of compiler and package versions, each with a different set of bugs and regressions, complicate the installation of Cocoa in HPC environments and the verification of numerical results. This section standardize the package environment.
@@ -65,7 +62,7 @@ The most straightforward way to install most prerequisites is via [Conda](https:
       'conda-forge::matplotlib=3.5.0' \
       'conda-forge::astropy=4.3.1'
       
- (**Warning**) If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see setion [Miniconda Installation](#sbu_overview_anaconda).
+ (**Warning**) If the user needs assistance installing [Minicoda](https://docs.conda.io/en/latest/miniconda.html), see section [Miniconda Installation](#sbu_overview_anaconda).
  
  (**expert**) If the user wants to add tensorflow, keras and torch for an emulator-based project, type
  
