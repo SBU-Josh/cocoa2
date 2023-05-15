@@ -141,7 +141,7 @@ Finally, the user needs to set the following environmental keys
       #export IGNORE_OPENBLAS_INSTALLATION=1
       #export IGNORE_FORTRAN_LAPACK_INSTALLATION=1
    
-(**expert**) Our scripts never install packages on `$HOME/.local`. Doing so could impose incompatibilities between Cobaya and different projects (or break the user's environment for other projects). All requirements for Cocoa are installed at
+(**expert**) Our scripts never install packages on `$HOME/.local`. All requirements for Cocoa are installed at
 
     Cocoa/.local/bin
     Cocoa/.local/include
