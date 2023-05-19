@@ -40,7 +40,7 @@ projects/cocoa_lsst_fourier
 projects/cocoa_des_y3
 projects/cocoa_lsst_y1
 projects/cocoa_*
-projects/ede*
+
 
 external_modules/data/XXX
 external_modules/data/des_y1
