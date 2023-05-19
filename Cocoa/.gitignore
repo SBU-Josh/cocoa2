@@ -40,7 +40,8 @@ projects/cocoa_lsst_fourier
 projects/cocoa_des_y3
 projects/cocoa_lsst_y1
 projects/cocoa_*
-
+projects/edemay2022
+projects/ede*
 
 external_modules/data/XXX
 external_modules/data/des_y1
@@ -52,6 +53,8 @@ external_modules/data/des_y3
 external_modules/data/des_4x2ptN
 external_modules/data/kids
 external_modules/data/cocoa_*
+external_modules/data/edemay2022
+external_modules/data/ede*
 
 external_modules/code/XXX
 external_modules/code/des_y1
@@ -63,6 +66,8 @@ external_modules/code/des_y3
 external_modules/code/des_4x2ptN
 external_modules/code/kids
 external_modules/code/cocoa_*
+external_modules/code/edemay2022
+external_modules/code/ede*
 
 external_modules/code/PolyChordLite/build/lib.linux-x86_64-cpython-37/
 external_modules/code/PolyChordLite/dist/
@@ -81,3 +86,5 @@ cobaya/cobaya/likelihoods/des_y3
 cobaya/cobaya/likelihoods/des_4x2ptN
 cobaya/cobaya/likelihoods/kids
 cobaya/cobaya/likelihoods/cocoa_*
+cobaya/cobaya/likelihoods/edemay2022
+cobaya/cobaya/likelihoods/ede*
